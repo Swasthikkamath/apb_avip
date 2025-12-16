@@ -103,11 +103,14 @@ task apb_slave_driver_proxy::run_phase(uvm_phase phase);
     apb_transfer_char_s struct_packet;
     apb_transfer_cfg_s struct_cfg;
 
+    seq_item_port.get_next_item(req);
+     apb_slave_seq_item_converter::from_class(req, struct_packet);
+    $display("THE WAIT IS %0d in driver",struct_packet.no_of_wait_states);
     apb_slave_drv_bfm_h.wait_for_setup_state(struct_packet);
     `uvm_info("DEBUG_MSHA", $sformatf("AFTER WAIT FOR SETUP STATE- STRUCT :: %p", struct_packet), UVM_HIGH); 
   
     
-    seq_item_port.get_next_item(req);
+    //seq_item_port.get_next_item(req);
     //Printing the req item
     `uvm_info(get_type_name(), $sformatf("REQ-SLAVE_TX \n %s",req.sprint),UVM_LOW);
       
@@ -137,7 +140,8 @@ task apb_slave_driver_proxy::run_phase(uvm_phase phase);
 
       `uvm_info("DEBUG_NA", $sformatf("before wait for access state- inside else :: %p", struct_packet), UVM_HIGH); 
       `uvm_info("DEBUG_NA", $sformatf("before wait for access state- inside else prdata :: %0h", struct_packet.prdata), UVM_HIGH); 
-       
+       struct_packet.no_of_wait_states = req.no_of_wait_states; 
+      $display("\N\N\N\N WAIT IS %0d \n\n\n",struct_packet.no_of_wait_states);  
       //drive the converted data packets to the slave driver bfm
       apb_slave_drv_bfm_h.wait_for_access_state(struct_packet);
 

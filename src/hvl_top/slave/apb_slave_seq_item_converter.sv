@@ -55,7 +55,8 @@ function void apb_slave_seq_item_converter::from_class(input apb_slave_tx input_
   
   output_conv_h.prdata = input_conv_h.prdata;
   `uvm_info("apb_slave_seq_item_conv_class",$sformatf("After ramdomizing prdata=%0h",output_conv_h.prdata),UVM_HIGH);
- 
+
+  $display("THE NO OF WAIT STATE IS %0d",input_conv_h.no_of_wait_states); 
   output_conv_h.no_of_wait_states = input_conv_h.no_of_wait_states;
   `uvm_info("apb_slave_seq_item_conv_class",$sformatf("After ramdomizing no_of_wait_states=%0h",
                                             output_conv_h.no_of_wait_states),UVM_HIGH);
