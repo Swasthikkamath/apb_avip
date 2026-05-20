@@ -7,7 +7,7 @@ set top apb_slave
 
 # Compilation
 # single step analyze + elaborate
-read_file -top $top -format sverilog -sva -vcs {-f ../../formal/design/filelist.flist}
+read_file -top $top -format sverilog -sva -vcs {-f ../apbFormalCompile.flist}
 
 
 create_clock PCLK -period 100 -initial 0
